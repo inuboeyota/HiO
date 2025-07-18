@@ -1,0 +1,5 @@
+# いらない
+node_modules
+.env*
+.vscode
+/src/generated/prisma

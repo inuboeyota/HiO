@@ -1,0 +1,34 @@
+{
+  "name": "hio",
+  "version": "0.9.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-deploy": "tsc -p . & cross-env NODE_ENV=development node dist/main.js",
+    "dev-watcher": "nodemon --watch src -e ts --exec ts-node src/main.ts",
+    "prd-deploy": "tsc -p . & cross-env NODE_ENV=production node dist/main.js"
+  },
+  "keywords": [],
+  "author": "yotawokuuinu",
+  "license": "MIT",
+  "type": "module",
+  "private": "false",
+  "description": "Holistic infrastructure Orchestratorという、汎用的なbotの基盤",
+  "dependencies": {
+    "@prisma/client": "^6.11.1",
+    "discord.js": "^14.19.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/sqlite3": "^3.1.11",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.27.0",
+    "nodemon": "^3.1.10",
+    "path": "^0.12.7",
+    "prisma": "^6.12.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

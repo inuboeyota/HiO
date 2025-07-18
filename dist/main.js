@@ -1,0 +1,36 @@
+import { botClient } from './bot.js';
+import dotenv from 'dotenv';
+import path from 'path';
+import { messageCommandLoader } from './core/messageCommand/messageCommandLoader.js';
+import messageCommandCrawler from './core/messageCommand/messageCommandCrawler.js';
+import { messageCommandFactory } from './core/messageCommand/messageCommandFactory.js';
+// NODE_ENVを取得（デフォルトは'production'）
+const env = process.env.NODE_ENV || 'production';
+// 対応する.envファイルを読み込む
+dotenv.config({ path: path.resolve('./', `.env.${env}`) });
+console.log(`現在使用している環境は： .env.${env} です。`);
+//=変数を用意================================================================================================//
+const msgLoadedCommands = messageCommandLoader();
+const msgCrawledCommands = messageCommandCrawler();
+//===========================================================================================================//
+//=起動後====================================================================================================//
+botClient.once('ready', () => {
+    console.log(`READY:[${process.env.BOT_NAME}]`);
+    if (botClient.user) {
+        // 送信先のユーザーID
+        const adminUserId = process.env.ADMIN_USER;
+        // 起動確認用メッセージ送信（admin（俺）宛て）
+        botClient.users.fetch(adminUserId).then(async (user) => {
+            user.send('起動したよ');
+        });
+    }
+});
+//===========================================================================================================//
+//===メッセージ受信時========================================================================================//
+botClient.on('messageCreate', async (message) => {
+    if (message.author.bot)
+        return;
+    messageCommandFactory(message, await msgLoadedCommands, await msgCrawledCommands);
+});
+//===========================================================================================================//
+botClient.login(process.env.TOKEN); //ログインする
