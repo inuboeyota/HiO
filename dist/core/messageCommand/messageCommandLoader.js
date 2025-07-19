@@ -20,7 +20,6 @@ export async function messageCommandLoader() {
     const returnCmdPair = {};
     for (const file of msgFiles) {
         const filePath = path.join(decodedMsgDir, file);
-        // FIXME:ここだ！！！！！！！！！！！ここがcommonjsの書き方だから！？かも！
         const module = await import(pathToFileURL(filePath).href);
         // 'default' エクスポートされたクラスをインスタンス化
         if (module.default) {

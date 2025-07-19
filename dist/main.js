@@ -4,6 +4,7 @@ import path from 'path';
 import { messageCommandLoader } from './core/messageCommand/messageCommandLoader.js';
 import messageCommandCrawler from './core/messageCommand/messageCommandCrawler.js';
 import { messageCommandFactory } from './core/messageCommand/messageCommandFactory.js';
+import { messageCommandPermission } from './core/messageCommand/messageCommandPermissions.js';
 // NODE_ENVを取得（デフォルトは'production'）
 const env = process.env.NODE_ENV || 'production';
 // 対応する.envファイルを読み込む
@@ -30,6 +31,10 @@ botClient.once('ready', () => {
 botClient.on('messageCreate', async (message) => {
     if (message.author.bot)
         return;
+    // permissionの判定を行い、実行可能性を判定する
+    const canExecute = messageCommandPermission(message, await msgLoadedCommands);
+    // TODO: canExecuteで分岐する
+    // messageCommandの実行
     messageCommandFactory(message, await msgLoadedCommands, await msgCrawledCommands);
 });
 //===========================================================================================================//

@@ -5,6 +5,7 @@ import { messageCommandLoader } from './core/messageCommand/messageCommandLoader
 import messageCommandCrawler from './core/messageCommand/messageCommandCrawler.js';
 import { Message } from 'discord.js';
 import { messageCommandFactory } from './core/messageCommand/messageCommandFactory.js';
+import { messageCommandPermission } from './core/messageCommand/messageCommandPermissions.js';
 
 // NODE_ENVを取得（デフォルトは'production'）
 const env = process.env.NODE_ENV || 'production';
@@ -40,8 +41,10 @@ botClient.once('ready', () => { //ここにボットが起動した際のコー�
 botClient.on('messageCreate', async (message: Message) => {
 	if (message.author.bot) return;
 
-	// 
+	// permissionの判定を行い、実行可能性を判定する
+	const canExecute = messageCommandPermission(message, await msgLoadedCommands)
 
+	// TODO: canExecuteで分岐する
 	// messageCommandの実行
 	messageCommandFactory(message, await msgLoadedCommands, await msgCrawledCommands)
 
