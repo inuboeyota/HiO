@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -27,7 +26,7 @@ model Guilds {
   id            Int     @id @default(autoincrement())
   GuildDiscId   String  @unique
   GuildName     String
-} 
+}
 
 // Users
 // ユーザごとの権限管理（ただし、基本的にはGuildでチェックをかけてから行う）

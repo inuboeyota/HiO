@@ -13,7 +13,8 @@ async function testYouCmd(ctx) {
     console.log(await utilGetSentIdInfo(ctx));
     // テスト：prismaの仕組み理解
     const prisma = new PrismaClient();
+    console.log("a"); //debug
     // pocから取得
     const allPocs = await prisma.poc_table.findMany();
-    console.log(allPocs);
+    console.log(allPocs[0].poc_name);
 }

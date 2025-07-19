@@ -4,9 +4,15 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-deploy": "tsc -p . & cross-env NODE_ENV=development node dist/main.js",
     "dev-watcher": "nodemon --watch src -e ts --exec ts-node src/main.ts",
-    "prd-deploy": "tsc -p . & cross-env NODE_ENV=production node dist/main.js"
+    "dev-deploy": "tsc -p . & cross-env NODE_ENV=development node dist/main.js",
+    "prd-deploy": "tsc -p . & cross-env NODE_ENV=production node dist/main.js",
+    "dev-prisma-migrate": "dotenv -e .env.development npx prisma migrate dev --name init",
+    "prd-prisma-migrate": "dotenv -e .env.production npx prisma migrate dev --name init",
+    "dev-prisma-generate": "dotenv -e .env.development npx prisma generate",
+    "prd-prisma-generate": "dotenv -e .env.production npx prisma generate",
+    "dev-prisma-studio": "dotenv -e .env.development npx prisma studio",
+    "prd-prisma-studio": "dotenv -e .env.production npx prisma studio"
   },
   "keywords": [],
   "author": "yotawokuuinu",
@@ -24,6 +30,7 @@
     "@types/sqlite3": "^3.1.11",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9.27.0",
     "nodemon": "^3.1.10",
     "path": "^0.12.7",

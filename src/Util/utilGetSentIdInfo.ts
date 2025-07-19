@@ -35,7 +35,7 @@ export async function utilGetSentIdInfo(message:Message):Promise<SentIdInfo> {
     roleId: userRolesAry,
     userId: userIdAry
   }
-  
+
   return sentIdInfoObj;
 
 }

@@ -8,6 +8,7 @@ declare module 'process' {
 				readonly TOKEN?: string;
 				readonly BOT_NAME?: string;
 				readonly ADMIN_USER?: string;
+				readonly DATABASE_URL?: string;
 			}
 		}
 	}
